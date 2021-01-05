@@ -45,9 +45,9 @@ type APIBuilder struct {
 }
 
 type HttpClientConfig struct {
-	HttpTimeout  time.Duration
-	Proxy        *url.URL
-	MaxIdleConns int
+	HttpTimeout  time.Duration `yaml: "timeout"`
+	Proxy        *url.URL      `yaml: "proxy"`
+	MaxIdleConns int           `yaml: "max_idle_conns"`
 }
 
 func (c HttpClientConfig) String() string {

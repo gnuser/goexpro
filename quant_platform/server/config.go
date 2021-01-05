@@ -1,14 +1,14 @@
 package main
 
 import (
+	"github.com/nntaoli-project/goex/builder"
 	"gopkg.in/yaml.v2"
 	"io/ioutil"
-	"log"
 )
 
 type Config struct {
-	Proxy   string `yaml: "proxy"`
-	Binance struct {
+	HttpClientConfig builder.HttpClientConfig `yaml: "httpClientConfig"`
+	Binance          struct {
 		ApiKey    string `yaml:"api_key"`
 		SecretKey string `yaml:"secret_key"`
 	}

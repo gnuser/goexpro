@@ -2,25 +2,28 @@ package main
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/nntaoli-project/goex/binance"
+	"github.com/nntaoli-project/goex"
+	"github.com/nntaoli-project/goex/builder"
 	"github.com/sirupsen/logrus"
 	"github.com/toorop/gin-logrus"
 )
 
 var (
-	config      *Config
-	binanceSpot *binance.Binance
+	config *Config
+	api    goex.API
+	log    *logrus.Logger
 )
 
 func init() {
+	log := logrus.New()
 	config = ParseConfigFile("config.yml")
 
 	// init binance exchange
-	binanceSpot = InitBinance(config.Proxy)
+	api = builder.NewAPIBuilder2(&config.HttpClientConfig).APIKey(config.Binance.ApiKey).APISecretkey(config.Binance.SecretKey).Build(goex.BINANCE)
+	log.Printf("[%v] exchange api created", api.GetExchangeName())
 }
 
 func main() {
-	log := logrus.New()
 	// hooks, config,...
 
 	r := gin.New()
